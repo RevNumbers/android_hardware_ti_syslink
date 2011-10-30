@@ -29,6 +29,10 @@ LOCAL_CFLAGS += -MD -pipe  -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-im
 #LOCAL_CFLAGS += -DSYSLINK_USE_DAEMON
 
 LOCAL_MODULE:= syslink_tilertest.out
+<<<<<<< HEAD
 LOCAL_MODULE_TAGS:=optional samples
+=======
+LOCAL_MODULE_TAGS := optional
+>>>>>>> 084f0a4
 
 include $(BUILD_EXECUTABLE)

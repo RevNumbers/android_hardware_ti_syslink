@@ -175,7 +175,11 @@ String MultiProc_getName(UInt16 id);
  *
  *  @return     number of processors
  */
+<<<<<<< HEAD
 UInt16 MultiProc_getNumProcessors(void);
+=======
+UInt16 MultiProc_getNumProcessors(Void);
+>>>>>>> 084f0a4
 
 /*!
  *  @brief      Gets executing processor's MultiProc id
@@ -184,7 +188,11 @@ UInt16 MultiProc_getNumProcessors(void);
  *
  *  @sa         MultiProc_getId
  */
+<<<<<<< HEAD
 UInt16 MultiProc_self(void);
+=======
+UInt16 MultiProc_self(Void);
+>>>>>>> 084f0a4
 
 /*!
  *  @brief      Sets executing processor's MultiProc id

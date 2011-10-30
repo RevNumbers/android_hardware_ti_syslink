@@ -483,13 +483,21 @@ Int RcmServer_delete (RcmServer_Handle * handlePtr);
  *
  *          This function must be serialized by the caller.
  */
+<<<<<<< HEAD
 void RcmServer_exit (void);
+=======
+Void RcmServer_exit (Void);
+>>>>>>> 084f0a4
 
 /*!
  *  @brief  Initialize the RcmServer module.
             This function must be serialized by the caller
  */
+<<<<<<< HEAD
 void RcmServer_init (void);
+=======
+Void RcmServer_init (Void);
+>>>>>>> 084f0a4
 
 /*!
  *  @brief  Initialize the instance create params structure.

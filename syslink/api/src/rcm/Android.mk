@@ -17,6 +17,10 @@ LOCAL_CFLAGS += -pipe -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-implici
 
 LOCAL_MODULE    := librcm
 LOCAL_MODULE_TAGS := optional
+<<<<<<< HEAD
+=======
+
+>>>>>>> 084f0a4
 LOCAL_SHARED_LIBRARIES := \
 	libipcutils \
 	libipc \

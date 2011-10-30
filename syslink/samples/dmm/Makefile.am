@@ -35,6 +35,7 @@ API_LIBS = \
 	$(MEMMGR_LIBS)
 
 
+<<<<<<< HEAD
 bin_PROGRAMS =  dmm_daemontest
 
 dmm_daemontest_SOURCES = dmmtestapp.c
@@ -42,3 +43,12 @@ dmm_daemontest_SOURCES = dmmtestapp.c
 dmm_daemontest_CPPFLAGS = $(AM_CFLAGS)
 
 dmm_daemontest_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS =  dmm_daemontest.out
+
+dmm_daemontest_out_SOURCES = dmmtestapp.c
+
+dmm_daemontest_out_CPPFLAGS = $(AM_CFLAGS)
+
+dmm_daemontest_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

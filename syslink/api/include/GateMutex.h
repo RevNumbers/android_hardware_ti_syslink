@@ -117,7 +117,11 @@ typedef struct GateMutex_Object * GateMutex_Handle;
  * =============================================================================
  */
 /* Function to create a Gate Mutex */
+<<<<<<< HEAD
 GateMutex_Handle GateMutex_create (void);
+=======
+GateMutex_Handle GateMutex_create (Void);
+>>>>>>> 084f0a4
 
 /* Function to delete a Gate Mutex */
 Int GateMutex_delete (GateMutex_Handle * gmHandle);

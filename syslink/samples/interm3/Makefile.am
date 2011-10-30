@@ -31,6 +31,7 @@ API_LIBS = \
 	$(LDPATH)/procmgr/libprocmgr.la \
 	$(LDPATH)/sysmgr/libsysmgr.la
 
+<<<<<<< HEAD
 bin_PROGRAMS = interm3
 
 interm3_SOURCES = interm3.c
@@ -38,3 +39,12 @@ interm3_SOURCES = interm3.c
 interm3_CPPFLAGS = $(AM_CFLAGS)
 
 interm3_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS = interm3.out
+
+interm3_out_SOURCES = interm3.c
+
+interm3_out_CPPFLAGS = $(AM_CFLAGS)
+
+interm3_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

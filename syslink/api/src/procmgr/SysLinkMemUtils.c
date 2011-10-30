@@ -87,12 +87,41 @@ extern "C" {
 #define TILER_ADDRESS_END           0x80000000
 
 /*!
+<<<<<<< HEAD
  *  @brief  Parameter for remote MemMgr_alloc
  */
 typedef struct {
     UInt            numBuffers;
     /*!< Number of buffer */
     MemAllocBlock   memBlock [1];
+=======
+ *  @brief  Alloc parameter structure
+ */
+typedef struct {
+    UInt    pixelFormat;
+    /*!< Pixel format */
+    UInt    width;
+    /*!< Width of the buffer */
+    UInt    height;
+    /*!< Height of the buffer */
+    UInt    length;
+    /*!< Length of the buffer */
+    UInt    stride;
+    /*!< stride */
+    Ptr     ptr;
+    /*!< Buffer pointer */
+    UInt  * reserved;
+    /*!< Reserved */
+} AllocParams;
+
+/*!
+ *  @brief  Parameter for remote MemMgr_alloc
+ */
+typedef struct {
+    UInt        numBuffers;
+    /*!< Number of buffer */
+    AllocParams params [1];
+>>>>>>> 084f0a4
     /*!< Alloc param struct */
 } AllocArgs;
 
@@ -453,10 +482,17 @@ SysLinkMemUtils_alloc (UInt32 dataSize, UInt32 * data)
     }
     else {
         for (i = 0; i < args->numBuffers; i++) {
+<<<<<<< HEAD
             memBlock [i].pixelFormat = args->memBlock [i].pixelFormat;
             memBlock [i].dim.area.width = args->memBlock [i].dim.area.width;
             memBlock [i].dim.area.height = args->memBlock [i].dim.area.height;
             memBlock [i].dim.len = args->memBlock [i].dim.len;
+=======
+            memBlock [i].pixelFormat = args->params [i].pixelFormat;
+            memBlock [i].dim.area.width = args->params [i].width;
+            memBlock [i].dim.area.height = args->params [i].height;
+            memBlock [i].dim.len = args->params [i].length;
+>>>>>>> 084f0a4
         }
     }
 
@@ -477,8 +513,13 @@ SysLinkMemUtils_alloc (UInt32 dataSize, UInt32 * data)
 
     if (status == PROCMGR_SUCCESS) {
         for (i = 0; i < args->numBuffers; i++) {
+<<<<<<< HEAD
             args->memBlock [i].stride = memBlock [i].stride;
             args->memBlock [i].ptr = memBlock [i].ptr;
+=======
+            args->params [i].stride = memBlock [i].stride;
+            args->params [i].ptr = memBlock [i].ptr;
+>>>>>>> 084f0a4
         }
         size = _SysLinkMemUtils_bufferSize (memBlock, args->numBuffers);
         mpuAddrList [0].mpuAddr = (UInt32)allocedPtr;

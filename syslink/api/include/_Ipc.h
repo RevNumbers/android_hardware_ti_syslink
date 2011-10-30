@@ -115,7 +115,11 @@ Int Ipc_writeConfig (UInt16 remoteProcId, UInt32 tag, Ptr cfg, SizeT size);
  *              - #Ipc_S_SUCCESS: if operation was successful
  *              - #Ipc_E_FAIL: if operation failed
  */
+<<<<<<< HEAD
 Int Ipc_stop (void);
+=======
+Int Ipc_stop (Void);
+>>>>>>> 084f0a4
 
 
 #if defined (__cplusplus)

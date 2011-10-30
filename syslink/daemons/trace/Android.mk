@@ -3,8 +3,11 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+<<<<<<< HEAD
 LOCAL_MODULE_TAGS:=optional
 
+=======
+>>>>>>> 084f0a4
 LOCAL_ARM_MODE := arm
 
 LOCAL_SRC_FILES:= \
@@ -25,5 +28,9 @@ LOCAL_CFLAGS += -MD -pipe  -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-im
 LOCAL_CFLAGS += -DSYSLINK_DIRECT_LOGD
 
 LOCAL_MODULE:= syslink_trace_daemon.out
+<<<<<<< HEAD
+=======
+LOCAL_MODULE_TAGS := optional
+>>>>>>> 084f0a4
 
 include $(BUILD_EXECUTABLE)

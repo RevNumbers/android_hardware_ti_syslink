@@ -41,6 +41,7 @@ API_LIBS = \
 	$(LDPATH)/sysmgr/libsysmgr.la
 
 
+<<<<<<< HEAD
 bin_PROGRAMS = slpmtest
 
 slpmtest_SOURCES = \
@@ -50,3 +51,14 @@ slpmtest_SOURCES = \
 slpmtest_CPPFLAGS = $(AM_CFLAGS)
 
 slpmtest_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS = slpmtest.out
+
+slpmtest_out_SOURCES = \
+	slpmtestOS.c \
+	slpmtestApp.c
+
+slpmtest_out_CPPFLAGS = $(AM_CFLAGS)
+
+slpmtest_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

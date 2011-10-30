@@ -31,6 +31,7 @@ API_LIBS = \
 	$(LDPATH)/procmgr/libprocmgr.la \
 	$(LDPATH)/sysmgr/libsysmgr.la
 
+<<<<<<< HEAD
 bin_PROGRAMS = notifyping
 
 notifyping_SOURCES = notifyping.c
@@ -38,3 +39,12 @@ notifyping_SOURCES = notifyping.c
 notifyping_CPPFLAGS = $(AM_CFLAGS)
 
 notifyping_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS = notifyping.out
+
+notifyping_out_SOURCES = notifyping.c
+
+notifyping_out_CPPFLAGS = $(AM_CFLAGS)
+
+notifyping_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

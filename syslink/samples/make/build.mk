@@ -114,7 +114,11 @@ ifeq ($(TARGETTYPE),ST_LIB)
    TARGET      := $(basename $(TARGETNAME)).a
 else
 ifeq ($(TARGETTYPE),EXEC)
+<<<<<<< HEAD
    TARGET      := $(basename $(TARGETNAME))
+=======
+   TARGET      := $(basename $(TARGETNAME)).out
+>>>>>>> 084f0a4
 else
 ifneq ($(TARGETTYPE),)
 TARGET         := $(error Invalid TARGETTYPE)
@@ -183,7 +187,11 @@ all :  $(CHECKSHELL) $(SUBMODULES)
 $(SUBMODULES):
 ifndef NORECURSE
 ifndef norecurse
+<<<<<<< HEAD
 	$(MAKE) --file=Makefile.mk -C $@ $(filter-out $(SUBMODULES),$(MAKECMDGOALS))
+=======
+	$(MAKE) -C $@ $(filter-out $(SUBMODULES),$(MAKECMDGOALS))
+>>>>>>> 084f0a4
 endif
 endif
 

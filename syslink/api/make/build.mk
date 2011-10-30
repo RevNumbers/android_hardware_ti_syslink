@@ -197,7 +197,11 @@ all :  $(CHECKSHELL) $(SUBMODULES)
 $(SUBMODULES):
 ifndef NORECURSE
 ifndef norecurse
+<<<<<<< HEAD
 	$(MAKE) --file=Makefile.mk -C $@ $(filter-out $(SUBMODULES),$(MAKECMDGOALS))
+=======
+	$(MAKE) -C $@ $(filter-out $(SUBMODULES),$(MAKECMDGOALS))
+>>>>>>> 084f0a4
 endif
 endif
 

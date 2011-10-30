@@ -165,8 +165,16 @@ Void MemMgrThreadFxn (Char * rcmServerName)
                     "from Ducati.\n");
 
     /* wait for commands */
+<<<<<<< HEAD
     sem_wait (&semMemMgrWait);
 
+=======
+    sem_init (&semMemMgrWait, 0, 0);
+    sem_wait (&semMemMgrWait);
+
+    sem_destroy (&semMemMgrWait);
+
+>>>>>>> 084f0a4
     for (i = 0; i < numFxns; i++) {
         /* Unregister the remote functions */
         status = RcmServer_removeSymbol (rcmServerHandle, memMgrFxns [i].name);
@@ -201,8 +209,11 @@ Int main (Int argc, Char * argv [])
         goto exit;
     }
 
+<<<<<<< HEAD
     sem_init (&semMemMgrWait, 0, 0);
 
+=======
+>>>>>>> 084f0a4
     /* Setup the signal handlers*/
     signal (SIGINT, signalHandler);
     signal (SIGKILL, signalHandler);
@@ -215,8 +226,11 @@ Int main (Int argc, Char * argv [])
 
     MemMgrThreadFxn (RCMSERVER_NAME);
 
+<<<<<<< HEAD
     sem_destroy (&semMemMgrWait);
 
+=======
+>>>>>>> 084f0a4
     status = Ipc_destroy ();
     if (status < 0) {
         Osal_printf ("Error in Ipc_destroy: status = 0x%x\n", status);

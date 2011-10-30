@@ -35,6 +35,7 @@ API_LIBS = \
 	$(LDPATH)/rcm/librcm.la
 
 
+<<<<<<< HEAD
 bin_PROGRAMS =  rcm_multitest rcm_multithreadtest rcm_multiclienttest rcm_daemontest
 
 rcm_multitest_SOURCES = RcmClientServerTest.c
@@ -51,3 +52,21 @@ rcm_multitest_LDADD = $(API_LIBS)
 rcm_multithreadtest_LDADD = $(API_LIBS)
 rcm_multiclienttest_LDADD = $(API_LIBS)
 rcm_daemontest_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS =  rcm_multitest.out rcm_multithreadtest.out rcm_multiclienttest.out rcm_daemontest.out
+
+rcm_multitest_out_SOURCES = RcmClientServerTest.c
+rcm_multithreadtest_out_SOURCES = RcmMultiThreadTest.c
+rcm_multiclienttest_out_SOURCES = RcmMultiClientTest.c
+rcm_daemontest_out_SOURCES = RcmMultiThreadTest.c
+
+rcm_multitest_out_CPPFLAGS = $(AM_CFLAGS)
+rcm_multithreadtest_out_CPPFLAGS = $(AM_CFLAGS)
+rcm_multiclienttest_out_CPPFLAGS = $(AM_CFLAGS)
+rcm_daemontest_out_CPPFLAGS = $(AM_CFLAGS) -DSYSLINK_USE_DAEMON
+
+rcm_multitest_out_LDADD = $(API_LIBS)
+rcm_multithreadtest_out_LDADD = $(API_LIBS)
+rcm_multiclienttest_out_LDADD = $(API_LIBS)
+rcm_daemontest_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

@@ -43,8 +43,13 @@
 /* OS-specific headers */
 #include <stdio.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <unistd.h>
 #include <string.h>
+=======
+#include <string.h>
+#include <unistd.h>
+>>>>>>> 084f0a4
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <pthread.h>
@@ -69,7 +74,11 @@ extern "C" {
 
 #define TRACE_BUFFER_SIZE               0x10000
 
+<<<<<<< HEAD
 #define TIMEOUT_USECS                   500000
+=======
+#define TIMEOUT_USECS                    5000000
+>>>>>>> 084f0a4
 
 #ifdef HAVE_ANDROID_OS
 #undef LOG_TAG
@@ -302,15 +311,25 @@ Int main (Int argc, Char * argv [])
                     (Void*)&args_sys);
     pthread_create (&thread_app, NULL, (Void *)&printRemoteTraces,
                     (Void*)&args_app);
+<<<<<<< HEAD
     pthread_create (&thread_dsp, NULL, (Void *)&printRemoteTraces,
                     (Void*)&args_dsp);
+=======
+    //pthread_create (&thread_dsp, NULL, (Void *)&printRemoteTraces,
+    //                (Void*)&args_dsp);
+>>>>>>> 084f0a4
 
     pthread_join (thread_sys, NULL);
     Osal_printf ("SysM3 trace thread exited\n");
     pthread_join (thread_app, NULL);
     Osal_printf ("AppM3 trace thread exited\n");
+<<<<<<< HEAD
     pthread_join (thread_dsp, NULL);
     Osal_printf ("Tesla trace thread exited\n");
+=======
+    //pthread_join (thread_dsp, NULL);
+    //Osal_printf ("Tesla trace thread exited\n");
+>>>>>>> 084f0a4
 
     UsrUtilsDrv_destroy ();
 

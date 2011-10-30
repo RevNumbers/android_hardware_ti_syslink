@@ -36,19 +36,32 @@ PROJROOT = $(top_srcdir)/daemons
 AM_CFLAGS = -DSYSLINK_USE_LOADER
 #AM_CFLAGS += -DSYSLINK_TRACE_ENABLE
 
+<<<<<<< HEAD
 bin_PROGRAMS = syslink_daemon
 
 syslink_daemon_SOURCES = \
 SyslinkDaemon.c
 
 syslink_daemon_CPPFLAGS    = \
+=======
+bin_PROGRAMS = syslink_daemon.out
+
+syslink_daemon_out_SOURCES = \
+SyslinkDaemon.c
+
+syslink_daemon_out_CPPFLAGS    = \
+>>>>>>> 084f0a4
 	-I$(PROJROOT)/inc \
 	-I$(PROJROOT)/../api/include \
 	 $(AM_CFLAGS)
 
 API_SRCDIR = ../../api/src
 
+<<<<<<< HEAD
 syslink_daemon_LDADD = \
+=======
+syslink_daemon_out_LDADD = \
+>>>>>>> 084f0a4
 	$(API_SRCDIR)/utils/libipcutils.la \
 	$(API_SRCDIR)/procmgr/libprocmgr.la \
 	$(API_SRCDIR)/ipc/libipc.la \

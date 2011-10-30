@@ -135,7 +135,11 @@ Int MultiProc_setup (MultiProc_Config * cfg);
  *
  *  @sa         MultiProc_setup
  */
+<<<<<<< HEAD
 Int MultiProc_destroy (void);
+=======
+Int MultiProc_destroy (Void);
+>>>>>>> 084f0a4
 
 /*
  *  @brief     Determines the offset for any two processors.

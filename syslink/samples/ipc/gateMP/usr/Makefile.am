@@ -32,6 +32,7 @@ API_LIBS = \
 	$(LDPATH)/notify/libsyslinknotify.la
 
 
+<<<<<<< HEAD
 bin_PROGRAMS = gateMPApp
 
 gateMPApp_SOURCES = GateMPApp.c
@@ -39,3 +40,12 @@ gateMPApp_SOURCES = GateMPApp.c
 gateMPApp_CPPFLAGS = $(AM_CFLAGS)
 
 gateMPApp_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS = gateMPApp.out
+
+gateMPApp_out_SOURCES = GateMPApp.c
+
+gateMPApp_out_CPPFLAGS = $(AM_CFLAGS)
+
+gateMPApp_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

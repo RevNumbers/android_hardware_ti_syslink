@@ -32,6 +32,7 @@ API_LIBS = \
 	$(LDPATH)/sysmgr/libsysmgr.la \
 	$(LDPATH)/rcm/librcm.la
 
+<<<<<<< HEAD
 bin_PROGRAMS =  event_listener
 
 event_listener_SOURCES = event_listener.c
@@ -39,3 +40,12 @@ event_listener_SOURCES = event_listener.c
 event_listener_CPPFLAGS = $(AM_CFLAGS)
 
 event_listener_LDADD = $(API_LIBS)
+=======
+bin_PROGRAMS =  event_listener.out
+
+event_listener_out_SOURCES = event_listener.c
+
+event_listener_out_CPPFLAGS = $(AM_CFLAGS)
+
+event_listener_out_LDADD = $(API_LIBS)
+>>>>>>> 084f0a4

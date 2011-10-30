@@ -402,7 +402,11 @@ Void ProcMgr_getConfig (ProcMgr_Config * cfg);
 Int ProcMgr_setup (ProcMgr_Config * cfg);
 
 /* Function to destroy the ProcMgr module. */
+<<<<<<< HEAD
 Int ProcMgr_destroy (void);
+=======
+Int ProcMgr_destroy (Void);
+>>>>>>> 084f0a4
 
 /* Function to initialize the parameters for the ProcMgr instance. */
 Void ProcMgr_Params_init (ProcMgr_Handle handle, ProcMgr_Params * params);

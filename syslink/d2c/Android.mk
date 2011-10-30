@@ -20,7 +20,11 @@ LOCAL_CFLAGS += -pipe -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-implici
 #-DOMAP_3430
 
 LOCAL_MODULE    := libd2cmap
+<<<<<<< HEAD
 LOCAL_MODULE_TAGS:=optional
+=======
+LOCAL_MODULE_TAGS := optional
+>>>>>>> 084f0a4
 
 LOCAL_SHARED_LIBRARIES := libsysmgr
 

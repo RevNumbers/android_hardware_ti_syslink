@@ -286,7 +286,11 @@ UInt16 SharedRegion_getIdByName(String name);
  *
  *  @return     number of regions
  */
+<<<<<<< HEAD
 UInt16 SharedRegion_getNumRegions(void);
+=======
+UInt16 SharedRegion_getNumRegions(Void);
+>>>>>>> 084f0a4
 
 /*!
  *  @brief      Calculate the local pointer from the shared region pointer
@@ -339,7 +343,11 @@ Int SharedRegion_setEntry(UInt16 regionId, SharedRegion_Entry *entry);
  *
  *  @return     'TRUE' if translate is enabled otherwise 'FALSE'
  */
+<<<<<<< HEAD
 Bool SharedRegion_translateEnabled(void);
+=======
+Bool SharedRegion_translateEnabled(Void);
+>>>>>>> 084f0a4
 
 
 #if defined (__cplusplus)

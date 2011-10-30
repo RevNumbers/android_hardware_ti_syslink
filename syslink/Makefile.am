@@ -32,12 +32,18 @@
 #   EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+<<<<<<< HEAD
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = api daemons
 if BUILD_SAMPLES
     SUBDIRS += samples
 endif
+=======
+AUTOMAKE_OPTIONS= foreign
+
+SUBDIRS = api daemons samples
+>>>>>>> 084f0a4
 
 EXTRA_DIST = autogen.sh
 

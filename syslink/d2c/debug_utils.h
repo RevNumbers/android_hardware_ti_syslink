@@ -37,8 +37,11 @@
 #ifndef _DEBUG_UTILS_H_
 #define _DEBUG_UTILS_H_
 
+<<<<<<< HEAD
 #include <stdio.h>
 
+=======
+>>>>>>> 084f0a4
 /*#define __DEBUG__*/
 /*#define __DEBUG_ENTRY__*/
 /*#define __DEBUG_ASSERT__*/
@@ -53,6 +56,7 @@
  *    ==> val is 5 at test.c:56:main()
  */
 /* debug print (fmt must be a literal); adds new-line. */
+<<<<<<< HEAD
 #define __DEBUG_PRINT(fmt, ...) S_ { fprintf(stdout, fmt "\n", ##__VA_ARGS__); fflush(stdout); } _S
 
 /* debug print with context information (fmt must be a literal) */
@@ -66,6 +70,17 @@
 #define DP(fmt, ...)
 #endif
 
+=======
+#ifdef __DEBUG__
+#define P(fmt, ...) S_ { fprintf(stdout, fmt "\n", ##__VA_ARGS__); fflush(stdout); } _S
+#else
+#define P(fmt, ...)
+#endif
+
+/* debug print with context information (fmt must be a literal) */
+#define DP(fmt, ...) P(fmt " at %s(" __FILE__ ":%d)", ##__VA_ARGS__, __FUNCTION__, __LINE__)
+
+>>>>>>> 084f0a4
 /* ---------- Program Flow Debug Macros ---------- */
 
 /**
@@ -98,6 +113,7 @@
 
 #ifdef __DEBUG_ENTRY__
 /* function entry */
+<<<<<<< HEAD
 #define IN __DEBUG_PRINT("in %s(" __FILE__ ":%d)", __FUNCTION__, __LINE__)
 /* function exit */
 #define OUT __DEBUG_PRINT("out %s(" __FILE__ ":%d)", __FUNCTION__, __LINE__)
@@ -105,6 +121,15 @@
 #define RET __DEBUG_DPRINT("out() ")
 /* generic function return */
 #define R(val,type,fmt) E_ { type __val__ = (type) val; __DEBUG_DPRINT("out(" fmt ")", __val__); __val__; } _E
+=======
+#define IN P("in %s(" __FILE__ ":%d)", __FUNCTION__, __LINE__)
+/* function exit */
+#define OUT P("out %s(" __FILE__ ":%d)", __FUNCTION__, __LINE__)
+/* function abort (return;)  Use as { RET; return; } */
+#define RET DP("out() ")
+/* generic function return */
+#define R(val,type,fmt) E_ { type __val__ = (type) val; DP("out(" fmt ")", __val__); __val__; } _E
+>>>>>>> 084f0a4
 #else
 #define IN
 #define OUT
@@ -138,12 +163,20 @@
 #ifdef __DEBUG_ASSERT__
 #define A(exp,cmp,val,type,fmt) E_ { \
     type __exp__ = (type) (exp); type __val__ = (type) (val); \
+<<<<<<< HEAD
     if (!(__exp__ cmp __val__)) __DEBUG_DPRINT("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+=======
+    if (!(__exp__ cmp __val__)) DP("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+>>>>>>> 084f0a4
     __exp__; \
 } _E
 #define CHK(exp,cmp,val,type,fmt) S_ { \
     type __exp__ = (type) (exp); type __val__ = (type) (val); \
+<<<<<<< HEAD
     if (!(__exp__ cmp __val__)) __DEBUG_DPRINT("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+=======
+    if (!(__exp__ cmp __val__)) DP("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+>>>>>>> 084f0a4
 } _S
 #else
 #define A(exp,cmp,val,type,fmt) (exp)
@@ -162,7 +195,11 @@
 #ifdef __DEBUG_ASSERT__
 #define NOT(exp,cmp,val,type,fmt) E_ { \
     type __exp__ = (type) (exp); type __val__ = (type) (val); \
+<<<<<<< HEAD
     if (!(__exp__ cmp __val__)) __DEBUG_DPRINT("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+=======
+    if (!(__exp__ cmp __val__)) DP("assert: %s (=" fmt ") !" #cmp " " fmt, #exp, __exp__, __val__); \
+>>>>>>> 084f0a4
     !(__exp__ cmp __val__); \
 } _E
 #else
@@ -174,6 +211,7 @@
 #define NOT_L(exp,cmp,val) NOT(exp,cmp,val,long,"%ld")
 #define NOT_P(exp,cmp,val) NOT(exp,cmp,val,void *,"%p")
 
+<<<<<<< HEAD
 
 /* system assertions - will use perror to give external error information */
 #ifdef __DEBUG_ASSERT__
@@ -198,14 +236,21 @@
 #define NOT_S(exp,cmp,val) (!((exp) cmp (val)))
 #endif
 
+=======
+>>>>>>> 084f0a4
 /* error propagation macros - these macros ensure evaluation of the expression
    even if there was a prior error */
 
 /* new error is accumulated into error */
 #define ERR_ADD(err, exp) S_ { int __error__ = A_I(exp,==,0); err = err ? err : __error__; } _S
+<<<<<<< HEAD
 #define ERR_ADD_S(err, exp) S_ { int __error__ = A_S(exp,==,0); err = err ? err : __error__; } _S
 /* new error overwrites old error */
 #define ERR_OVW(err, exp) S_ { int __error__ = A_I(exp,==,0); err = __error__ ? __error__ : err; } _S
 #define ERR_OVW_S(err, exp) S_ { int __error__ = A_S(exp,==,0); err = __error__ ? __error__ : err; } _S
+=======
+/* new error overwrites old error */
+#define ERR_OVW(err, exp) S_ { int __error__ = A_I(exp,==,0); err = __error__ ? __error__ : err; } _S
+>>>>>>> 084f0a4
 
 #endif
