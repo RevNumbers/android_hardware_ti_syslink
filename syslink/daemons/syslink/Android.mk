@@ -13,8 +13,8 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH) \
 	$(LOCAL_PATH)/../../api/include \
 	$(LOCAL_PATH)/../../api/include\ti\ipc \
-	hardware/ti/omap4/tiler \
-	hardware/ti/omap4/syslink/ipc-listener
+	hardware/ti/tiler \
+	hardware/ti/syslink/ipc-listener
 
 LOCAL_SHARED_LIBRARIES := \
 	libipcutils \
@@ -30,5 +30,6 @@ LOCAL_CFLAGS += -MD -pipe  -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-im
 LOCAL_CFLAGS += -DSYSLINK_DIRECT_LOGD
 
 LOCAL_MODULE:= syslink_daemon.out
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_EXECUTABLE)

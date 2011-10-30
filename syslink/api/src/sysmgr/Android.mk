@@ -34,7 +34,7 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../../include \
 	$(LOCAL_PATH)/../../include/ti/ipc \
 	$(LOCAL_PATH)/../../src/procmgr/procmgr4430 \
-	hardware/ti/omap4/tiler
+	hardware/ti/tiler
 
 LOCAL_SHARED_LIBRARIES += \
 		libc \
@@ -47,6 +47,8 @@ LOCAL_SHARED_LIBRARIES += \
 LOCAL_CFLAGS += -pipe -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-implicit-function-declaration  -fno-strict-aliasing -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork -msoft-float -Uarm -DMODULE -D__LINUX_ARM_ARCH__=7  -fno-common -DLINUX -fpic
 LOCAL_CFLAGS += -DSYSLINK_USE_SYSMGR
 LOCAL_CFLAGS += -DARM_TARGET -DC60_TARGET
+
 LOCAL_MODULE    := libsysmgr
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
