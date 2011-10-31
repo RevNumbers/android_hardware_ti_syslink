@@ -146,11 +146,7 @@ Int HeapMemMP_setup (const HeapMemMP_Config * config);
  *              NameServer_delete
  *              GateMutex_delete
  */
-<<<<<<< HEAD
-Int HeapMemMP_destroy (void);
-=======
 Int HeapMemMP_destroy (Void);
->>>>>>> 084f0a4
 
 /*!
  *  @brief      Returns the HeapMemMP kernel object pointer.

@@ -2,10 +2,6 @@
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
-<<<<<<< HEAD
-LOCAL_MODULE_TAGS:=optional
-=======
->>>>>>> 084f0a4
 
 LOCAL_ARM_MODE := arm
 
@@ -27,12 +23,8 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_CFLAGS += -MD -pipe  -fomit-frame-pointer -Wall  -Wno-trigraphs -Werror-implicit-function-declaration  -fno-strict-aliasing -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork -msoft-float -Uarm -DMODULE -D__LINUX_ARM_ARCH__=7  -fno-common -DLINUX -DTMS32060 -D_DB_TIOMAP -DSYSLINK_USE_LOADER
 #LOCAL_CFLAGS += -DSYSLINK_USE_DAEMON
+LOCAL_MODULE_TAGS := optional
 
 LOCAL_MODULE:= utilsApp.out
-<<<<<<< HEAD
-LOCAL_MODULE_TAGS:=optional samples
-=======
-LOCAL_MODULE_TAGS := optional
->>>>>>> 084f0a4
 
 include $(BUILD_EXECUTABLE)

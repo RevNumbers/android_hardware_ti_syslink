@@ -717,43 +717,11 @@ ProcMMU_open (Int proc)
     return status;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 084f0a4
 /*!
  *  @brief  Function to Register for MMU faults
  *
  *  @sa
  */
-<<<<<<< HEAD
-Int32 ProcMMU_registerEvent (Int32 procId, Int32 eventfd, bool reg)
-{
-    Int32 fd        = eventfd;
-    Int32 status    = ProcMMU_S_SUCCESS;
-
-    GT_3trace (curTrace, GT_ENTER, "ProcMMU_registerEvent", procId, eventfd,
-                reg);
-
-    if ((procId == MultiProc_getId("AppM3")) || \
-        (procId == MultiProc_getId("SysM3"))) {
-        if (reg) {
-            status = ioctl (ProcMMU_MPU_M3_handle, IOMMU_IOCEVENTREG, &fd);
-        }
-        else {
-            status = ioctl (ProcMMU_MPU_M3_handle, IOMMU_IOCEVENTUNREG, &fd);
-        }
-    }
-    else if (procId == MultiProc_getId("Tesla")) {
-        if (reg) {
-            status = ioctl (ProcMMU_DSP_handle, IOMMU_IOCEVENTREG, &fd);
-        }
-        else {
-            status = ioctl (ProcMMU_DSP_handle, IOMMU_IOCEVENTUNREG, &fd);
-        }
-    }
-    else {
-=======
 Int32 ProcMMU_registerEvent(Int32 procId, Int32 eventfd, bool reg)
 {
     Int32 fd = eventfd;
@@ -765,26 +733,11 @@ Int32 ProcMMU_registerEvent(Int32 procId, Int32 eventfd, bool reg)
         else
             status = ioctl (ProcMMU_MPU_M3_handle, IOMMU_IOCEVENTUNREG, &fd);
     }else {
->>>>>>> 084f0a4
         status = ProcMMU_E_OSFAILURE;
     }
 
     if (status < 0) {
 #if !defined(SYSLINK_BUILD_OPTIMIZE)
-<<<<<<< HEAD
-        GT_setFailureReason (curTrace,
-                             GT_4CLASS,
-                             "ProcMMU_registerEvent",
-                             status,
-                             "API (through IOCTL) failed on kernel-side!");
-#endif /* if !defined(SYSLINK_BUILD_OPTIMIZE) */
-    }
-    status = ((status < 0) ? ProcMMU_E_OSFAILURE : ProcMMU_S_SUCCESS);
-
-    GT_1trace (curTrace, GT_LEAVE, "ProcMMU_registerEvent", status);
-
-    return status;
-=======
             GT_setFailureReason (curTrace,
                                  GT_4CLASS,
                                  "ProcMMU_registerEvent",
@@ -794,7 +747,6 @@ Int32 ProcMMU_registerEvent(Int32 procId, Int32 eventfd, bool reg)
         return ProcMMU_E_OSFAILURE;
     }
     return ProcMMU_S_SUCCESS;
->>>>>>> 084f0a4
 }
 
 

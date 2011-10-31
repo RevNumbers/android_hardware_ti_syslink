@@ -152,22 +152,14 @@ Void NameServer_getConfig (NameServer_Config * cfg);
  *
  *  @sa         NameServer_destroy
  */
-<<<<<<< HEAD
-Int NameServer_setup (void);
-=======
 Int NameServer_setup (Void);
->>>>>>> 084f0a4
 
 /*!
  *  @brief      Function to destroy the nameserver module.
  *
  *  @sa         NameServer_setup
  */
-<<<<<<< HEAD
-Int NameServer_destroy (void);
-=======
 Int NameServer_destroy (Void);
->>>>>>> 084f0a4
 
 /*!
  *  @brief      Function to construct a name server.

@@ -70,11 +70,8 @@
 /* Sample headers */
 #include <CrashInfo.h>
 
-<<<<<<< HEAD
-=======
 #include <syslink_ipc_listener.h>
 
->>>>>>> 084f0a4
 #ifdef HAVE_ANDROID_OS
 #undef LOG_TAG
 #define LOG_TAG "SYSLINKD"
@@ -96,12 +93,6 @@
 #define DUCATI_DMM_POOL_0_ID            0
 #define DUCATI_DMM_POOL_0_START         0x90000000
 #define DUCATI_DMM_POOL_0_SIZE          0x10000000
-<<<<<<< HEAD
-#define TESLA_DMM_POOL_0_ID             0
-#define TESLA_DMM_POOL_0_START          0x90000000
-#define TESLA_DMM_POOL_0_SIZE           0x10000000
-=======
->>>>>>> 084f0a4
 
 #define FAULT_RECOVERY_DELAY            500000
 
@@ -113,28 +104,13 @@
 
 #define SYSM3_PROC_NAME                 "SysM3"
 #define APPM3_PROC_NAME                 "AppM3"
-<<<<<<< HEAD
-#define DSP_PROC_NAME                   "Tesla"
-
-=======
->>>>>>> 084f0a4
 #define READ_BUF_SIZE                   50
 
 ProcMgr_Handle                  procMgrHandleSysM3;
 ProcMgr_Handle                  procMgrHandleAppM3;
-<<<<<<< HEAD
-ProcMgr_Handle                  procMgrHandleDsp;
-UInt16                          remoteIdSysM3;
-UInt16                          remoteIdAppM3;
-UInt16                          remoteIdDsp;
-Bool                            sysM3;
-Bool                            appM3;
-Bool                            dsp;
-=======
 Bool                            appM3Client         = FALSE;
 UInt16                          remoteIdSysM3;
 UInt16                          remoteIdAppM3;
->>>>>>> 084f0a4
 sem_t                           semDaemonWait;
 HeapBufMP_Handle                heapHandle          = NULL;
 SizeT                           heapSize            = 0;
@@ -151,10 +127,6 @@ static Bool                     isAppM3Event        = FALSE;
 #if defined (SYSLINK_USE_LOADER)
 UInt32                          fileIdSysM3;
 UInt32                          fileIdAppM3;
-<<<<<<< HEAD
-UInt32                          fileIdDsp;
-=======
->>>>>>> 084f0a4
 #endif
 
 #if defined (__cplusplus)
@@ -551,50 +523,12 @@ static Void ipcCleanup (Void)
         Memory_free (srHeap, heapBufPtr, heapSize);
     }
 
-<<<<<<< HEAD
-    if (dsp) {
-        stopParams.proc_id = remoteIdDsp;
-        status = ProcMgr_stop (procMgrHandleDsp, &stopParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_stop(%d): status = 0x%x\n",
-                            stopParams.proc_id, status);
-        }
-
-        status = ProcMgr_deleteDMMPool (TESLA_DMM_POOL_0_ID, remoteIdDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_deleteDMMPool: status = 0x%x\n",
-                            status);
-        }
-
-#if defined(SYSLINK_USE_LOADER)
-        status = ProcMgr_unload (procMgrHandleDsp, fileIdDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_unload: status [0x%x]\n", status);
-        }
-#endif
-
-        status = ProcMgr_detach (procMgrHandleDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach(DSP): status = 0x%x\n",
-                            status);
-        }
-
-        status = ProcMgr_close (&procMgrHandleDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close(DSP): status = 0x%x\n",
-                            status);
-        }
-    }
-
-    if (appM3) {
-=======
     status = ProcMgr_deleteDMMPool (DUCATI_DMM_POOL_0_ID, remoteIdSysM3);
     if (status < 0) {
         Osal_printf ("Error in ProcMgr_deleteDMMPool:status = 0x%x\n", status);
     }
 
     if(appM3Client) {
->>>>>>> 084f0a4
         stopParams.proc_id = remoteIdAppM3;
         status = ProcMgr_stop (procMgrHandleAppM3, &stopParams);
         if (status < 0) {
@@ -604,61 +538,6 @@ static Void ipcCleanup (Void)
 
 #if defined(SYSLINK_USE_LOADER)
         status = ProcMgr_unload (procMgrHandleAppM3, fileIdAppM3);
-<<<<<<< HEAD
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_unload: status [0x%x]\n",
-                            status);
-        }
-#endif
-
-        status = ProcMgr_detach (procMgrHandleAppM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach(AppM3): status = 0x%x\n",
-                            status);
-        }
-
-        status = ProcMgr_close (&procMgrHandleAppM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close(AppM3): status = 0x%x\n",
-                            status);
-        }
-    }
-
-    if (sysM3) {
-        stopParams.proc_id = remoteIdSysM3;
-        status = ProcMgr_stop (procMgrHandleSysM3, &stopParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_stop(%d): status = 0x%x\n",
-                            stopParams.proc_id, status);
-        }
-
-        status = ProcMgr_deleteDMMPool (DUCATI_DMM_POOL_0_ID, remoteIdSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_deleteDMMPool: status = 0x%x\n",
-                            status);
-        }
-
-#if defined(SYSLINK_USE_LOADER)
-        status = ProcMgr_unload (procMgrHandleSysM3, fileIdSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_unload: status [0x%x]\n", status);
-        }
-#endif
-
-        status = ProcMgr_detach (procMgrHandleSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach(SysM3): status = 0x%x\n",
-                            status);
-        }
-
-        status = ProcMgr_close (&procMgrHandleSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close(SysM3): status = 0x%x\n",
-                            status);
-        }
-    }
-
-=======
         if(status < 0) {
             Osal_printf ("Error in ProcMgr_unload, status [0x%x]\n", status);
         }
@@ -701,7 +580,6 @@ static Void ipcCleanup (Void)
         Osal_printf ("Error in ProcMgr_close(SysM3): status = 0x%x\n", status);
     }
 
->>>>>>> 084f0a4
     status = Ipc_destroy ();
     if (status < 0) {
         Osal_printf ("Error in Ipc_destroy: status = 0x%x\n", status);
@@ -714,11 +592,7 @@ static Void ipcCleanup (Void)
 /*
  *  ======== ipcSetup ========
  */
-<<<<<<< HEAD
-static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName, Char * dspImageName)
-=======
 static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
->>>>>>> 084f0a4
 {
     Ipc_Config                      config;
     ProcMgr_StopParams              stopParams;
@@ -733,16 +607,10 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
     UInt32                          srCount;
     SharedRegion_Entry              srEntry;
 
-<<<<<<< HEAD
-    sysM3   = !!sysM3ImageName;
-    appM3   = !!appM3ImageName;
-    dsp     = !!dspImageName;
-=======
     if(appM3ImageName != NULL)
         appM3Client = TRUE;
     else
         appM3Client = FALSE;
->>>>>>> 084f0a4
 
     Ipc_getConfig (&config);
     status = Ipc_setup (&config);
@@ -756,29 +624,12 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
     Osal_printf ("MultiProc_getId remoteId: [0x%x]\n", remoteIdSysM3);
     remoteIdAppM3 = MultiProc_getId (APPM3_PROC_NAME);
     Osal_printf ("MultiProc_getId remoteId: [0x%x]\n", remoteIdAppM3);
-<<<<<<< HEAD
-    remoteIdDsp = MultiProc_getId (DSP_PROC_NAME);
-    Osal_printf ("MultiProc_getId remoteId: [0x%x]\n", remoteIdDsp);
-=======
     procId = remoteIdSysM3;
     Osal_printf ("MultiProc_getId procId: [0x%x]\n", procId);
->>>>>>> 084f0a4
 
     /* Temporary fix to account for a timing issue during recovery. */
     usleep(FAULT_RECOVERY_DELAY);
 
-<<<<<<< HEAD
-    /* Open a handle to the ProcMgr instance. */
-    if (sysM3) {
-        procId = remoteIdSysM3;
-        Osal_printf ("MultiProc_getId procId: [0x%x]\n", procId);
-        status = ProcMgr_open (&procMgrHandleSysM3, procId);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_open [0x%x]\n", status);
-            goto exit_ipc_destroy;
-        }
-
-=======
     printf("RCM procId= %d\n", procId);
     /* Open a handle to the ProcMgr instance. */
     status = ProcMgr_open (&procMgrHandleSysM3, procId);
@@ -787,24 +638,12 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
         goto exit_ipc_destroy;
     }
     else {
->>>>>>> 084f0a4
         Osal_printf ("ProcMgr_open Status [0x%x]\n", status);
         ProcMgr_getAttachParams (NULL, &attachParams);
         /* Default params will be used if NULL is passed. */
         status = ProcMgr_attach (procMgrHandleSysM3, &attachParams);
         if (status < 0) {
             Osal_printf ("ProcMgr_attach failed [0x%x]\n", status);
-<<<<<<< HEAD
-            goto exit_procmgr_close_sysm3;
-        }
-        Osal_printf ("ProcMgr_attach status: [0x%x]\n", status);
-        state = ProcMgr_getState (procMgrHandleSysM3);
-        Osal_printf ("After attach: ProcMgr_getState\n"
-                     "  state [0x%x]\n", status);
-    }
-
-    if (appM3) {
-=======
         }
         else {
             Osal_printf ("ProcMgr_attach status: [0x%x]\n", status);
@@ -815,7 +654,6 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
     }
 
     if (status >= 0 && appM3Client) {
->>>>>>> 084f0a4
         procId = remoteIdAppM3;
         Osal_printf ("MultiProc_getId procId: [0x%x]\n", procId);
 
@@ -823,91 +661,6 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
         status = ProcMgr_open (&procMgrHandleAppM3, procId);
         if (status < 0) {
             Osal_printf ("Error in ProcMgr_open [0x%x]\n", status);
-<<<<<<< HEAD
-            goto exit_procmgr_detach_sysm3;
-        }
-        Osal_printf ("ProcMgr_open Status [0x%x]\n", status);
-        ProcMgr_getAttachParams (NULL, &attachParams);
-        /* Default params will be used if NULL is passed. */
-        status = ProcMgr_attach (procMgrHandleAppM3, &attachParams);
-        if (status < 0) {
-            Osal_printf ("ProcMgr_attach failed [0x%x]\n", status);
-            goto exit_procmgr_close_appm3;
-        }
-        Osal_printf ("ProcMgr_attach status: [0x%x]\n", status);
-        state = ProcMgr_getState (procMgrHandleAppM3);
-        Osal_printf ("After attach: ProcMgr_getState\n"
-                     "  state [0x%x]\n", status);
-    }
-
-    if (dsp) {
-        procId = remoteIdDsp;
-        Osal_printf ("MultiProc_getId procId: [0x%x]\n", procId);
-
-        /* Open a handle to the ProcMgr instance. */
-        status = ProcMgr_open (&procMgrHandleDsp, procId);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_open [0x%x]\n", status);
-            goto exit_procmgr_detach_appm3;
-        }
-        Osal_printf ("ProcMgr_open Status [0x%x]\n", status);
-        ProcMgr_getAttachParams (NULL, &attachParams);
-        /* Default params will be used if NULL is passed. */
-        status = ProcMgr_attach (procMgrHandleDsp, &attachParams);
-        if (status < 0) {
-            Osal_printf ("ProcMgr_attach failed [0x%x]\n", status);
-            goto exit_procmgr_close_dsp;
-        }
-        Osal_printf ("ProcMgr_attach status: [0x%x]\n", status);
-        state = ProcMgr_getState (procMgrHandleDsp);
-        Osal_printf ("After attach: ProcMgr_getState\n"
-                     "  state [0x%x]\n", status);
-    }
-
-    if (sysM3) {
-#if defined(SYSLINK_USE_LOADER)
-        Osal_printf ("SysM3 Load: loading the SysM3 image %s\n",
-                        sysM3ImageName);
-
-        status = ProcMgr_load (procMgrHandleSysM3, sysM3ImageName, 2,
-                                &sysM3ImageName, &entryPoint, &fileIdSysM3,
-                                remoteIdSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_load, status [0x%x]\n", status);
-            goto exit_procmgr_detach_dsp;
-        }
-#endif
-
-        Osal_printf ("SysM3: Creating Ducati DMM pool of size 0x%x\n",
-                        DUCATI_DMM_POOL_0_SIZE);
-        status = ProcMgr_createDMMPool (DUCATI_DMM_POOL_0_ID,
-                                        DUCATI_DMM_POOL_0_START,
-                                        DUCATI_DMM_POOL_0_SIZE,
-                                        remoteIdSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_createDMMPool, status [0x%x]\n",
-                            status);
-            goto exit_procmgr_close_dsp;
-        }
-
-        startParams.proc_id = remoteIdSysM3;
-        Osal_printf ("Starting ProcMgr for procID = %d\n", startParams.proc_id);
-        status  = ProcMgr_start (procMgrHandleSysM3, entryPoint, &startParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_start, status [0x%x]\n", status);
-            goto exit_procmgr_dmmpool_sysm3;
-        }
-    }
-
-    if (appM3) {
-#if defined(SYSLINK_USE_LOADER)
-        Osal_printf ("AppM3 Load: loading the AppM3 image %s\n",
-                        appM3ImageName);
-        status = ProcMgr_load (procMgrHandleAppM3, appM3ImageName, 2,
-                                &appM3ImageName, &entryPoint, &fileIdAppM3,
-                                remoteIdAppM3);
-        if (status < 0) {
-=======
             goto exit_ipc_destroy;
         }
         else {
@@ -955,61 +708,20 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
                               &appM3ImageName, &entryPoint, &fileIdAppM3,
                               remoteIdAppM3);
         if(status < 0) {
->>>>>>> 084f0a4
             Osal_printf ("Error in ProcMgr_load, status [0x%x]\n", status);
             goto exit_procmgr_stop_sysm3;
         }
 #endif
-<<<<<<< HEAD
-
-        startParams.proc_id = remoteIdAppM3;
-        Osal_printf ("Starting ProcMgr for procID = %d\n", startParams.proc_id);
-        status = ProcMgr_start (procMgrHandleAppM3, entryPoint, &startParams);
-        if (status < 0) {
-=======
         startParams.proc_id = remoteIdAppM3;
         Osal_printf ("Starting ProcMgr for procID = %d\n", startParams.proc_id);
         status  = ProcMgr_start(procMgrHandleAppM3, entryPoint,
                                 &startParams);
         if(status < 0) {
->>>>>>> 084f0a4
             Osal_printf ("Error in ProcMgr_start, status [0x%x]\n", status);
             goto exit_procmgr_stop_sysm3;
         }
     }
 
-<<<<<<< HEAD
-    if (dsp) {
-#if defined(SYSLINK_USE_LOADER)
-        Osal_printf ("Tesla Load: loading the DSP image %s\n", dspImageName);
-        status = ProcMgr_load (procMgrHandleDsp, dspImageName, 2,
-                                &dspImageName, &entryPoint, &fileIdDsp,
-                                remoteIdDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_load, status [0x%x]\n", status);
-            goto exit_procmgr_stop_appm3;
-        }
-#endif
-
-        Osal_printf ("Tesla: Creating Tesla DMM pool of size 0x%x\n",
-                        TESLA_DMM_POOL_0_SIZE);
-        status = ProcMgr_createDMMPool (TESLA_DMM_POOL_0_ID,
-                                        TESLA_DMM_POOL_0_START,
-                                        TESLA_DMM_POOL_0_SIZE,
-                                        remoteIdDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_createDMMPool, status [0x%x]\n", status);
-            goto exit_procmgr_stop_appm3;
-        }
-
-        startParams.proc_id = remoteIdDsp;
-        Osal_printf ("Starting ProcMgr for procID = %d\n", startParams.proc_id);
-        status = ProcMgr_start (procMgrHandleDsp, entryPoint, &startParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_start, status [0x%x]\n", status);
-            goto exit_procmgr_dmmpool_dsp;
-        }
-=======
     Osal_printf ("SysM3: Creating Ducati DMM pool of size 0x%x\n",
                 DUCATI_DMM_POOL_0_SIZE);
     status = ProcMgr_createDMMPool (DUCATI_DMM_POOL_0_ID,
@@ -1019,7 +731,6 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
     if(status < 0) {
         Osal_printf ("Error in ProcMgr_createDMMPool, status [0x%x]\n", status);
         goto exit_procmgr_stop_sysm3;
->>>>>>> 084f0a4
     }
 
     srCount = SharedRegion_getNumRegions();
@@ -1034,87 +745,10 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
                         srEntry.cacheLineSize, (Int)srEntry.createHeap,
                         srEntry.name);
     }
-<<<<<<< HEAD
-    if (status < 0) {
-        goto exit_procmgr_stop_dsp;
-    }
-=======
->>>>>>> 084f0a4
 
     /* Create the heap to be used by RCM and register it with MessageQ */
     /* TODO: Do this dynamically by reading from the IPC config from the
      *       baseimage using Ipc_readConfig() */
-<<<<<<< HEAD
-    HeapBufMP_Params_init (&heapbufmpParams);
-    heapbufmpParams.sharedAddr = NULL;
-    heapbufmpParams.align      = RCM_MSGQ_TILER_HEAP_ALIGN;
-    heapbufmpParams.numBlocks  = RCM_MSGQ_TILER_HEAP_BLOCKS;
-    heapbufmpParams.blockSize  = RCM_MSGQ_TILER_MSGSIZE;
-    heapSize = HeapBufMP_sharedMemReq (&heapbufmpParams);
-    Osal_printf ("heapSize = 0x%x\n", heapSize);
-
-    srHeap = SharedRegion_getHeap (RCM_MSGQ_HEAP_SR);
-    if (srHeap == NULL) {
-        status = MEMORYOS_E_FAIL;
-        Osal_printf ("SharedRegion_getHeap failed for srHeap:"
-                     " [0x%x]\n", srHeap);
-        goto exit_procmgr_stop_dsp;
-    }
-    Osal_printf ("Before Memory_alloc = 0x%x\n", srHeap);
-    heapBufPtr = Memory_alloc (srHeap, heapSize, 0);
-    if (heapBufPtr == NULL) {
-        status = MEMORYOS_E_MEMORY;
-        Osal_printf ("Memory_alloc failed for ptr: [0x%x]\n", heapBufPtr);
-        goto exit_procmgr_stop_dsp;
-    }
-    heapbufmpParams.name           = RCM_MSGQ_TILER_HEAPNAME;
-    heapbufmpParams.sharedAddr     = heapBufPtr;
-    Osal_printf ("Before HeapBufMP_Create: [0x%x]\n", heapBufPtr);
-    heapHandle = HeapBufMP_create (&heapbufmpParams);
-    if (heapHandle == NULL) {
-        status = HeapBufMP_E_FAIL;
-        Osal_printf ("HeapBufMP_create failed for Handle:"
-                     "[0x%x]\n", heapHandle);
-        goto exit_heapbuf_alloc;
-    }
-    /* Register this heap with MessageQ */
-    status = MessageQ_registerHeap (heapHandle, RCM_MSGQ_TILER_HEAPID);
-    if (status < 0) {
-        Osal_printf ("MessageQ_registerHeap failed!\n");
-        goto exit_heapbuf_create;
-    }
-
-    HeapBufMP_Params_init (&heapbufmpParams);
-    heapbufmpParams.sharedAddr = NULL;
-    heapbufmpParams.align      = RCM_MSGQ_DOMX_HEAP_ALIGN;
-    heapbufmpParams.numBlocks  = RCM_MSGQ_DOMX_HEAP_BLOCKS;
-    heapbufmpParams.blockSize  = RCM_MSGQ_DOMX_MSGSIZE;
-    heapSize1 = HeapBufMP_sharedMemReq (&heapbufmpParams);
-    Osal_printf ("heapSize1 = 0x%x\n", heapSize1);
-
-    heapBufPtr1 = Memory_alloc (srHeap, heapSize1, 0);
-    if (heapBufPtr1 == NULL) {
-        status = MEMORYOS_E_MEMORY;
-        Osal_printf ("Memory_alloc failed for ptr: [0x%x]\n", heapBufPtr1);
-        goto exit_heapbuf_register;
-    }
-    heapbufmpParams.name           = RCM_MSGQ_DOMX_HEAPNAME;
-    heapbufmpParams.sharedAddr     = heapBufPtr1;
-    Osal_printf ("Before HeapBufMP_Create: [0x%x]\n", heapBufPtr1);
-    heapHandle1 = HeapBufMP_create (&heapbufmpParams);
-    if (heapHandle1 == NULL) {
-        status = HeapBufMP_E_FAIL;
-        Osal_printf ("HeapBufMP_create failed for Handle:"
-                     "[0x%x]\n", heapHandle1);
-        goto exit_heapbuf1_alloc;
-    }
-        /* Register this heap with MessageQ */
-    status = MessageQ_registerHeap (heapHandle1,
-                                    RCM_MSGQ_DOMX_HEAPID);
-    if (status < 0) {
-        Osal_printf ("MessageQ_registerHeap failed!\n");
-        goto exit_heapbuf1_create;
-=======
     if (status >= 0) {
         HeapBufMP_Params_init (&heapbufmpParams);
         heapbufmpParams.sharedAddr = NULL;
@@ -1201,106 +835,11 @@ static Int ipcSetup (Char * sysM3ImageName, Char * appM3ImageName)
                 }
             }
         }
->>>>>>> 084f0a4
     }
 
     Osal_printf ("=== SysLink-IPC setup completed successfully!===\n");
     return 0;
 
-<<<<<<< HEAD
-exit_heapbuf1_create:
-    HeapBufMP_delete (&heapHandle1);
-exit_heapbuf1_alloc:
-    Memory_free (srHeap, heapBufPtr1, heapSize1);
-exit_heapbuf_register:
-    MessageQ_unregisterHeap (RCM_MSGQ_TILER_HEAPID);
-exit_heapbuf_create:
-    HeapBufMP_delete (&heapHandle);
-exit_heapbuf_alloc:
-    Memory_free (srHeap, heapBufPtr, heapSize);
-exit_procmgr_stop_dsp:
-    if (dsp) {
-        stopParams.proc_id = remoteIdDsp;
-        status = ProcMgr_stop (procMgrHandleDsp, &stopParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_stop(%d): status = 0x%x\n",
-                         stopParams.proc_id, status);
-        }
-    }
-exit_procmgr_dmmpool_dsp:
-    if (dsp) {
-        status = ProcMgr_deleteDMMPool (TESLA_DMM_POOL_0_ID, remoteIdDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_deleteDMMPool:status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_stop_appm3:
-    if (appM3) {
-        stopParams.proc_id = remoteIdAppM3;
-        status = ProcMgr_stop (procMgrHandleAppM3, &stopParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_stop(%d): status = 0x%x\n",
-                         stopParams.proc_id, status);
-        }
-    }
-exit_procmgr_stop_sysm3:
-    if (sysM3) {
-        stopParams.proc_id = remoteIdSysM3;
-        status = ProcMgr_stop (procMgrHandleSysM3, &stopParams);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_stop(%d): status = 0x%x\n",
-                         stopParams.proc_id, status);
-        }
-    }
-exit_procmgr_dmmpool_sysm3:
-    if (sysM3) {
-        status = ProcMgr_deleteDMMPool (DUCATI_DMM_POOL_0_ID, remoteIdSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_deleteDMMPool:status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_detach_dsp:
-    if (dsp) {
-        status = ProcMgr_detach (procMgrHandleDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach: status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_close_dsp:
-    if (dsp) {
-        status = ProcMgr_close (&procMgrHandleDsp);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close: status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_detach_appm3:
-    if (appM3) {
-        status = ProcMgr_detach (procMgrHandleAppM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach: status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_close_appm3:
-    if (appM3) {
-        status = ProcMgr_close (&procMgrHandleAppM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close: status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_detach_sysm3:
-    if (sysM3) {
-        status = ProcMgr_detach (procMgrHandleSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_detach: status = 0x%x\n", status);
-        }
-    }
-exit_procmgr_close_sysm3:
-    if (sysM3) {
-        status = ProcMgr_close (&procMgrHandleSysM3);
-        if (status < 0) {
-            Osal_printf ("Error in ProcMgr_close: status = 0x%x\n", status);
-        }
-=======
 exit_procmgr_stop_sysm3:
     stopParams.proc_id = remoteIdSysM3;
     status = ProcMgr_stop (procMgrHandleSysM3, &stopParams);
@@ -1313,17 +852,13 @@ exit_procmgr_close_sysm3:
     status = ProcMgr_close (&procMgrHandleSysM3);
     if (status < 0) {
         Osal_printf ("Error in ProcMgr_close: status = 0x%x\n", status);
->>>>>>> 084f0a4
     }
 exit_ipc_destroy:
     status = Ipc_destroy ();
     if (status < 0) {
         Osal_printf ("Error in Ipc_destroy: status = 0x%x\n", status);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 084f0a4
 exit:
     return (-1);
 }
@@ -1331,26 +866,15 @@ exit:
 static Void printUsage (Void)
 {
     Osal_printf ("\nInvalid arguments!\n"
-<<<<<<< HEAD
-                 "Usage: ./syslink_daemon [-f] <[<[-s] <SysM3 image file>> "
-                 "[<[-a] <AppM3 image file>>]] [<[-d] <DSP image file>>]>\n"
-=======
                  "Usage: ./syslink_daemon.out [-f] <[-s] <SysM3 image file>> "
                  "[<[-a] <AppM3 image file>>]\n"
->>>>>>> 084f0a4
                  "Rules: - Full paths must be provided for image files.\n"
                  "       - Use '-f' option to run as a regular process.\n"
                  "       - Images can be specified in any order as long as\n"
                  "         the corresponding option is specified.\n"
                  "       - All images not preceded by an option are applied\n"
                  "         to the cores whose images are not already\n"
-<<<<<<< HEAD
-                 "         specified in the order of SysM3, AppM3, DSP\n"
-                 "       - Daemon can launch just SysM3, just DSP, both SysM3\n"
-                 "         & AppM3, or all SysM3, AppM3 & DSP cores.\n\n");
-=======
                  "         specified in the order of SysM3, AppM3\n\n");
->>>>>>> 084f0a4
     exit (EXIT_FAILURE);
 }
 
@@ -1362,11 +886,7 @@ Int main (Int argc, Char * argv [])
     Bool    daemon      = TRUE;
     Int     o;
     Int     i;
-<<<<<<< HEAD
-    Char  * images []   = {NULL, NULL, NULL};
-=======
     Char  * images []   = {NULL, NULL};
->>>>>>> 084f0a4
     Int     numImages   = sizeof (images) / sizeof (images [0]);
 
     if (isDaemonRunning (argv [0])) {
@@ -1376,11 +896,7 @@ Int main (Int argc, Char * argv [])
     }
 
     /* Determine args */
-<<<<<<< HEAD
-    while ((o = getopt (argc, argv, ":fs:a:d:")) != -1) {
-=======
     while ((o = getopt (argc, argv, ":fs:a:")) != -1) {
->>>>>>> 084f0a4
         switch (o) {
         case 's':
             images [0] = optarg;
@@ -1388,12 +904,6 @@ Int main (Int argc, Char * argv [])
         case 'a':
             images [1] = optarg;
             break;
-<<<<<<< HEAD
-        case 'd':
-            images [2] = optarg;
-            break;
-=======
->>>>>>> 084f0a4
         case 'f':
             daemon = FALSE;
             break;
@@ -1423,12 +933,6 @@ Int main (Int argc, Char * argv [])
         }
     }
 
-<<<<<<< HEAD
-    if (status || (!images [0] && (!images [2] || (images [1] && images [2])))) {
-        printUsage ();
-    }
-
-=======
     if (status || optind < argc || !images [0]) {
         printUsage ();
     }
@@ -1436,7 +940,6 @@ Int main (Int argc, Char * argv [])
     // Start listner that will listen for incoming messages
     startSyslinkListenerThread();
 
->>>>>>> 084f0a4
     /* Process will be daemonised if daemon flag is true */
     if (daemon) {
         Osal_printf ("Spawning SysLink Daemon...\n");
@@ -1481,11 +984,7 @@ Int main (Int argc, Char * argv [])
 
         sem_init (&semDaemonWait, 0, 0);
 
-<<<<<<< HEAD
-        status = ipcSetup (images [0], images [1], images [2]);
-=======
         status = ipcSetup (images [0], images [1]);
->>>>>>> 084f0a4
         if (status < 0) {
             Osal_printf ("ipcSetup failed!\n");
             sem_destroy (&semDaemonWait);

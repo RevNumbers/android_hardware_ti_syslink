@@ -37,12 +37,8 @@ LOCAL_SHARED_LIBRARIES += \
 		libc \
 		libipcutils \
 		liblog
+LOCAL_MODULE_TAGS := optional
 
 LOCAL_MODULE    := libipc
-<<<<<<< HEAD
-LOCAL_MODULE_TAGS:= optional
-=======
-LOCAL_MODULE_TAGS := optional
->>>>>>> 084f0a4
 
 include $(BUILD_SHARED_LIBRARY)

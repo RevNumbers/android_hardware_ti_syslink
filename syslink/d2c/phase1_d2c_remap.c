@@ -46,17 +46,10 @@
 #include <sys/mman.h>
 #include <errno.h>
 
-<<<<<<< HEAD
-#define  __DEBUG__
-#undef  __DEBUG0__
-#undef  __DEBUG_ENTRY__
-#define __DEBUG_ASSERT__
-=======
 #define __DEBUG__
 #define __DEBUG_ASSERT__
 #define  __DEBUG0__
 #define __DEBUG_ENTRY__
->>>>>>> 084f0a4
 
 #ifdef HAVE_CONFIG_H
     #include "config.h"
@@ -73,52 +66,18 @@
 /* ----- START debug only methods ----- */
 
 #ifdef __DEBUG0__
-<<<<<<< HEAD
-#ifdef __DEBUG__
-/**
- * Returns the bytes per pixel for the pixel format.
- *
- * @author a0194118 (9/4/2009)
- *
- * @param pixelFormat   Pixelformat
- *
- * @return Bytes per pixel
- */
-static bytes_t def_bpp(pixel_fmt_t pixelFormat)
-{
-    return (pixelFormat == PIXEL_FMT_32BIT ? 4 :
-            pixelFormat == PIXEL_FMT_16BIT ? 2 : 1);
-}
-#endif
-
-=======
 static bytes_t def_bpp(pixel_fmt_t pixelFormat);
->>>>>>> 084f0a4
 static void __dump_block(struct tiler_block_info *blk, char *prefix, char *suffix)
 {
     switch (blk->fmt)
     {
     case TILFMT_PAGE:
-<<<<<<< HEAD
-        P("%s [%d:(%d,%08x), p=%p(0x%x),l=0x%x,s=%d,%d+%d]%s", prefix, blk->group_id, blk->key, blk->id, blk->ptr, blk->ssptr,
-          blk->dim.len, blk->stride, blk->align, blk->offs, suffix);
-=======
         P("%s [p=%p(0x%x),l=0x%x,s=%d]%s", prefix, blk->ptr, blk->ssptr,
           blk->dim.len, blk->stride, suffix);
->>>>>>> 084f0a4
         break;
     case TILFMT_8BIT:
     case TILFMT_16BIT:
     case TILFMT_32BIT:
-<<<<<<< HEAD
-        P("%s [%d:(%d,%08x), p=%p(0x%x),%d*%d*%d,s=%d,%d+%d]%s", prefix, blk->group_id, blk->key, blk->id, blk->ptr, blk->ssptr,
-          blk->dim.area.width, blk->dim.area.height, def_bpp(blk->fmt) * 8,
-          blk->stride, blk->align, blk->offs, suffix);
-        break;
-    default:
-        P("%s*[%d:(%d,%08x), p=%p(0x%x),l=0x%x,s=%d,%d+%d,fmt=0x%x]%s", prefix, blk->group_id, blk->key, blk->id, blk->ptr,
-          blk->ssptr, blk->dim.len, blk->stride, blk->align, blk->offs, blk->fmt, suffix);
-=======
         P("%s [p=%p(0x%x),%d*%d*%d,s=%d]%s", prefix, blk->ptr, blk->ssptr,
           blk->dim.area.width, blk->dim.area.height, def_bpp(blk->fmt) * 8,
           blk->stride, suffix);
@@ -126,17 +85,12 @@ static void __dump_block(struct tiler_block_info *blk, char *prefix, char *suffi
     default:
         P("%s*[p=%p(0x%x),l=0x%x,s=%d,fmt=0x%x]%s", prefix, blk->ptr,
           blk->ssptr, blk->dim.len, blk->stride, blk->fmt, suffix);
->>>>>>> 084f0a4
     }
 }
 
 static void __dump_buf(struct tiler_buf_info* buf, char* prefix)
 {
-<<<<<<< HEAD
-    P("%sbuf={n=%d,id=0x%x+0x%x,", prefix, buf->num_blocks, buf->offset, buf->length);
-=======
     P("%sbuf={n=%d,id=0x%x,", prefix, buf->num_blocks, buf->offset);
->>>>>>> 084f0a4
     int ix = 0;
     for (ix = 0; ix < buf->num_blocks; ix++)
     {
@@ -181,8 +135,6 @@ static int bufs_inited = 0;
 static pthread_mutex_t che_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /**
-<<<<<<< HEAD
-=======
  * Returns the bytes per pixel for the pixel format.
  *
  * @author a0194118 (9/4/2009)
@@ -212,7 +164,6 @@ static bytes_t def_stride(pixels_t width)
 }
 
 /**
->>>>>>> 084f0a4
  * Initializes the static structures
  *
  * @author a0194118 (9/8/2009)
@@ -236,26 +187,16 @@ static void init()
  *
  * @return 0 on success, -ENOMEM on memory allocation error
  */
-<<<<<<< HEAD
-static int remap_cache_add(void *bufPtr, struct tiler_buf_info *buf)
-=======
 static int remap_cache_add(void *bufPtr, uint32_t tiler_id)
->>>>>>> 084f0a4
 {
     pthread_mutex_lock(&che_mutex);
     init();
     struct _ReMapData *ad = NEW(struct _ReMapData);
     if (ad)
     {
-<<<<<<< HEAD
-        ad->bufPtr = bufPtr;
-        ad->tiler_id = buf->offset;
-        DLIST_MADD_BEFORE(bufs, ad, link);
-=======
 	    ad->bufPtr = bufPtr;
 	    ad->tiler_id = tiler_id;
 	    DLIST_MADD_BEFORE(bufs, ad, link);
->>>>>>> 084f0a4
     }
     pthread_mutex_unlock(&che_mutex);
     return ad == NULL ? -ENOMEM : 0;
@@ -272,29 +213,13 @@ static int remap_cache_add(void *bufPtr, uint32_t tiler_id)
  *
  * @return Tiler ID on success, 0 on failure.
  */
-<<<<<<< HEAD
-static void remap_cache_del(void *bufPtr, struct tiler_buf_info *buf)
-=======
 static uint32_t remap_cache_del(void *bufPtr)
->>>>>>> 084f0a4
 {
     struct _ReMapData *ad;
     pthread_mutex_lock(&che_mutex);
     init();
     DLIST_MLOOP(bufs, ad, link) {
         if (ad->bufPtr == bufPtr) {
-<<<<<<< HEAD
-            buf->offset = ad->tiler_id;
-            DLIST_REMOVE(ad->link);
-            FREE(ad);
-            pthread_mutex_unlock(&che_mutex);
-            return;
-        }
-    }
-    pthread_mutex_unlock(&che_mutex);
-    buf->offset = 0;
-    return;
-=======
             uint32_t tiler_id = ad->tiler_id;
             DLIST_REMOVE(ad->link);
             FREE(ad);
@@ -320,7 +245,6 @@ static bytes_t def_size(struct tiler_block_info *blk)
     return (blk->fmt == PIXEL_FMT_PAGE ?
             blk->dim.len :
             blk->dim.area.height * def_stride(blk->dim.area.width * def_bpp(blk->fmt)));
->>>>>>> 084f0a4
 }
 
 void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
@@ -338,11 +262,7 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
     ZERO(buf);
     buf.num_blocks = num_blocks;
     int ix, res;
-<<<<<<< HEAD
-    bytes_t size = 0, offs;
-=======
     bytes_t size = 0;
->>>>>>> 084f0a4
 
     /* need tiler driver */
     int td = open("/dev/tiler", O_RDWR | O_SYNC);
@@ -359,24 +279,15 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
         if (NOT_I(SysLinkMemUtils_virtToPhys(dsptrs[ix], &ssptr, PROC_APPM3),>,0))
             goto FAILURE;
 
-<<<<<<< HEAD
-        if (NOT_P(ssptr,!=,0)) {
-            P("dsptrs[%d]=0x%x maps to null", ix, dsptrs[ix]);
-=======
         __dump_block(buf.blocks + ix, "<=v2s==", "");
         buf.blocks[ix].ssptr = ssptr;
         if (NOT_P(ssptr,!=,0)) {
             P("for dsptrs[%d]=0x%x", ix, dsptrs[ix]);
->>>>>>> 084f0a4
             goto FAILURE;
         }
 
         /* query tiler driver for details on these blocks, such as
            width/height/len/fmt */
-<<<<<<< HEAD
-        buf.blocks[ix].id = ssptr;
-        size += lengths[ix];
-=======
         __dump_block(buf.blocks + ix, "=(qb)=>", "");
         res = ioctl(td, TILIOC_QUERY_BLK, buf.blocks + ix);
         __dump_block(buf.blocks + ix, "<=(qb)=", "");
@@ -447,7 +358,6 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
 
         /* add up size of buffer after remap */
         size += def_size(buf.blocks + ix);
->>>>>>> 084f0a4
     }
 
     /* register this buffer and/or query last registration */
@@ -455,19 +365,6 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
     res = ioctl(td, TILIOC_RBUF, &buf);
     __dump_buf(&buf, "<=(RBUF)==");
     if (NOT_I(res,==,0) || NOT_P(buf.offset,!=,0)) goto FAILURE;
-<<<<<<< HEAD
-    offs = buf.offset & (PAGE_SIZE - 1);
-    size = ROUND_UP_TO2POW(size + offs, PAGE_SIZE);
-    CHK_I(size - offs,==,buf.length);
-
-    /* map blocks to process space */
-    bufPtr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
-                        td, buf.offset & ~(PAGE_SIZE - 1));
-    if (bufPtr == MAP_FAILED){
-        bufPtr = NULL;
-    } else {
-        bufPtr += buf.offset & (PAGE_SIZE - 1);
-=======
 
     /* map blocks to process space */
     bufPtr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED,
@@ -476,19 +373,13 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
         bufPtr = NULL;
     } else {
         bufPtr += buf.blocks[0].ssptr & (PAGE_SIZE - 1);
->>>>>>> 084f0a4
     }
     DP0("ptr=%p", bufPtr);
 
     /* if failed to map: unregister buffer */
     if (NOT_P(bufPtr,!=,NULL) ||
-<<<<<<< HEAD
-        /* or failed to cache tiler ID for buffer */
-        NOT_I(remap_cache_add(bufPtr, &buf),==,0))
-=======
 	/* or failed to cache tiler ID for buffer */
 	NOT_I(remap_cache_add(bufPtr, buf.offset),==,0))
->>>>>>> 084f0a4
     {
         A_I(ioctl(td, TILIOC_URBUF, &buf),==,0);
     }
@@ -500,11 +391,7 @@ void *tiler_assisted_phase1_D2CReMap(int num_blocks, DSPtr dsptrs[],
         {
             buf.blocks[ix].ptr = bufPtr + size;
             /* P("   [0x%p]", blks[ix].ptr); */
-<<<<<<< HEAD
-            size += lengths[ix]; /* def_size(buf.blocks + ix); */
-=======
             size += def_size(buf.blocks + ix);
->>>>>>> 084f0a4
         }
     }
 
@@ -523,29 +410,11 @@ int tiler_assisted_phase1_DeMap(void *bufPtr)
     struct tiler_buf_info buf;
     ZERO(buf);
     /* need tiler driver */
-<<<<<<< HEAD
-    int td = open("/dev/tiler", O_RDWR | O_SYNC);
-=======
     int ix, td = open("/dev/tiler", O_RDWR | O_SYNC);
->>>>>>> 084f0a4
     if (NOT_I(td,>=,0)) return R_I(ret);
 
     /* retrieve registered buffers from vsptr */
     /* :NOTE: if this succeeds, Memory Allocator stops tracking this buffer */
-<<<<<<< HEAD
-    remap_cache_del(bufPtr, &buf);
-
-    if (A_L(buf.offset,!=,0))
-    {
-        /* unregister buffer */
-        __dump_buf(&buf, "==(URBUF)=>");
-        ret = A_I(ioctl(td, TILIOC_URBUF, &buf),==,0);
-        __dump_buf(&buf, "<=(URBUF)==");
-
-        /* unmap buffer */
-        bufPtr = (void *)ROUND_DOWN_TO2POW((uint32_t)bufPtr, PAGE_SIZE);
-        ERR_ADD(ret, munmap(bufPtr, buf.length));
-=======
     buf.offset = remap_cache_del(bufPtr);
 
     if (A_L(buf.offset,!=,0))
@@ -572,7 +441,6 @@ int tiler_assisted_phase1_DeMap(void *bufPtr)
             bufPtr = (void *)ROUND_DOWN_TO2POW((uint32_t)bufPtr, PAGE_SIZE);
             ERR_ADD(ret, munmap(bufPtr, size));
         }
->>>>>>> 084f0a4
     }
 
     close(td);

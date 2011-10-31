@@ -242,23 +242,11 @@ typedef struct ProcMgr_CmdArgs_tag {
 #define RPROC_IOC_MAGIC                 'P'
 
 #define RPROC_IOCMONITOR                _IO(RPROC_IOC_MAGIC, 0)
-<<<<<<< HEAD
-#define RPROC_IOCSTART                  _IOWR(RPROC_IOC_MAGIC, 1, \
-                                                ProcMgr_CmdArgsRemoteProcStart)
-#define RPROC_IOCSTOP                   _IOWR(RPROC_IOC_MAGIC, 2, \
-                                                ProcMgr_CmdArgs)
-#define RPROC_IOCGETSTATE               _IOR(RPROC_IOC_MAGIC, 3, Int)
-#define RPROC_IOCREGEVENT               _IOR(RPROC_IOC_MAGIC, 4, \
-                                             ProcMgr_CmdArgsRegEvent)
-#define RPROC_IOCUNREGEVENT             _IOR(RPROC_IOC_MAGIC, 5, \
-                                             ProcMgr_CmdArgsUnRegEvent)
-=======
 #define RPROC_IOCSTART                  _IO(RPROC_IOC_MAGIC, 1)
 #define RPROC_IOCSTOP                   _IO(RPROC_IOC_MAGIC, 2)
 #define RPROC_IOCGETSTATE               _IOR(RPROC_IOC_MAGIC, 3, Int)
 #define RPROC_IOCREGEVENT               _IOR(RPROC_IOC_MAGIC, 4, ProcMgr_CmdArgsRegEvent)
 #define RPROC_IOCUNREGEVENT             _IOR(RPROC_IOC_MAGIC, 5, ProcMgr_CmdArgsUnRegEvent)
->>>>>>> 084f0a4
 
 
 
@@ -451,33 +439,14 @@ typedef struct ProcMgr_CmdArgsStart_tag {
     ProcMgr_CmdArgs         commonArgs;
     /*!< Common command args */
     Handle                  handle;
-<<<<<<< HEAD
-    /*!< Handle to the ProcMgr object */
-    UInt32                  entry_point;
-    /*!< Entry point for the image*/
-=======
     /*Entry point for the image*/
     UInt32                  entry_point;
     /*!< Handle to the ProcMgr object */
->>>>>>> 084f0a4
     ProcMgr_StartParams *   params;
     /*!< Optional ProcMgr start parameters. */
 } ProcMgr_CmdArgsStart;
 
 /*!
-<<<<<<< HEAD
- *  @brief  Command arguments for ProcMgr_start (remoteProc)
- */
-typedef struct ProcMgr_CmdArgsRemoteProcStart_tag {
-    ProcMgr_CmdArgs         commonArgs;
-    /*!< Common command args */
-    UInt32                  startAddr;
-    /*!< Optional ProcMgr start address. */
-} ProcMgr_CmdArgsRemoteProcStart;
-
-/*!
-=======
->>>>>>> 084f0a4
  *  @brief  Command arguments for ProcMgr_stop
  */
 typedef struct ProcMgr_CmdArgsStop_tag {

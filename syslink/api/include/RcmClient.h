@@ -359,20 +359,12 @@ typedef struct RcmClient_Object_tag *RcmClient_Handle;
 /*!
  *  @brief  Function to setup RCM client
  */
-<<<<<<< HEAD
-void RcmClient_init (void);
-=======
 Void RcmClient_init (Void);
->>>>>>> 084f0a4
 
 /*!
  * @brief   Function to clean up RCM client
  */
-<<<<<<< HEAD
-void RcmClient_exit (void);
-=======
 Void RcmClient_exit (Void);
->>>>>>> 084f0a4
 
 /*!
  *  @brief  Function to create a RCM client instance
@@ -436,11 +428,7 @@ Int RcmClient_addSymbol (RcmClient_Handle           handle,
  *
  *  @return Size of the RcmClient header
  */
-<<<<<<< HEAD
-Int RcmClient_getHeaderSize (void);
-=======
 Int RcmClient_getHeaderSize (Void);
->>>>>>> 084f0a4
 
 /*!
  *  @brief  Function allocates memory for RCM message on heap,

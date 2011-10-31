@@ -52,15 +52,9 @@ extern "C" {
 
 
 /* Function to initialize user side utils */
-<<<<<<< HEAD
-void UsrUtilsDrv_setup (void);
-/* Function to finalize user side utils */
-void UsrUtilsDrv_destroy (void);
-=======
 Void UsrUtilsDrv_setup (Void);
 /* Function to finalize user side utils */
 Void UsrUtilsDrv_destroy(Void);
->>>>>>> 084f0a4
 
 
 #if defined (__cplusplus)

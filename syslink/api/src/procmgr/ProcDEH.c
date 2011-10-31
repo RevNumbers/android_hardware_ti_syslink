@@ -60,17 +60,10 @@ extern "C" {
  *  Macros and types
  *  ============================================================================
  */
-<<<<<<< HEAD
-#define PROC_DEH_TESLA_DRIVER_NAME  "/dev/omap-devh0"
-#define PROC_DEH_SYSM3_DRIVER_NAME  "/dev/omap-devh1"
-#define PROC_DEH_APPM3_DRIVER_NAME  "/dev/omap-devh2"
-
-=======
 #define PROC_DEH_SYSM3_DRIVER_NAME  "/dev/omap-devh1"
 #define PROC_DEH_APPM3_DRIVER_NAME  "/dev/omap-devh2"
 
 
->>>>>>> 084f0a4
 /** ============================================================================
  *  Globals
  *  ============================================================================
@@ -78,20 +71,12 @@ extern "C" {
 /*!
  *  @brief  Driver handle for ProcDEH in this process.
  */
-<<<<<<< HEAD
-static Int32    ProcDEH_TeslaHandle = -1;
-=======
->>>>>>> 084f0a4
 static Int32    ProcDEH_SysM3Handle = -1;
 static Int32    ProcDEH_AppM3Handle = -1;
 
 /*!
  *  @brief  Reference count for the driver handle.
  */
-<<<<<<< HEAD
-static UInt32   ProcDEH_TeslaRefCount = 0;
-=======
->>>>>>> 084f0a4
 static UInt32   ProcDEH_SysM3RefCount = 0;
 static UInt32   ProcDEH_AppM3RefCount = 0;
 static sem_t    semRefCount;
@@ -126,15 +111,6 @@ ProcDEH_close (UInt16 procId)
         return status;
     }
 
-<<<<<<< HEAD
-    if (procId == MultiProc_getId ("Tesla") && --ProcDEH_TeslaRefCount) {
-        sem_post (&semRefCount);
-        GT_1trace (curTrace, GT_LEAVE, "ProcDEH_close", status);
-        return status;
-    }
-
-=======
->>>>>>> 084f0a4
     if (procId == MultiProc_getId ("SysM3")) {
         osStatus = close (ProcDEH_SysM3Handle);
         if (osStatus != 0) {
@@ -163,23 +139,6 @@ ProcDEH_close (UInt16 procId)
             ProcDEH_AppM3Handle = -1;
         }
     }
-<<<<<<< HEAD
-    else if (procId == MultiProc_getId ("Tesla")) {
-        osStatus = close (ProcDEH_TeslaHandle);
-        if (osStatus != 0) {
-            status = ProcDEH_E_OSFAILURE;
-            GT_setFailureReason (curTrace,
-                                 GT_4CLASS,
-                                 "ProcDEH_close",
-                                 status,
-                                 "Failed to close ProcDEH driver with OS!");
-        }
-        else {
-            ProcDEH_TeslaHandle = -1;
-        }
-    }
-=======
->>>>>>> 084f0a4
     else {
         GT_setFailureReason (curTrace,
                              GT_4CLASS,
@@ -218,15 +177,6 @@ ProcDEH_open (UInt16 procId)
         return status;
     }
 
-<<<<<<< HEAD
-    if (procId == MultiProc_getId ("Tesla") && ProcDEH_TeslaRefCount++) {
-        sem_post (&semRefCount);
-        GT_1trace (curTrace, GT_LEAVE, "ProcDEH_open", status);
-        return status;
-    }
-
-=======
->>>>>>> 084f0a4
     if (procId == MultiProc_getId ("SysM3")) {
         ProcDEH_SysM3Handle = open (PROC_DEH_SYSM3_DRIVER_NAME,
                                     O_SYNC | O_RDONLY);
@@ -273,32 +223,6 @@ ProcDEH_open (UInt16 procId)
             }
         }
     }
-<<<<<<< HEAD
-    else if (procId == MultiProc_getId ("Tesla")) {
-        ProcDEH_TeslaHandle = open (PROC_DEH_TESLA_DRIVER_NAME,
-                                    O_SYNC | O_RDONLY);
-        if (ProcDEH_TeslaHandle < 0) {
-            status = ProcDEH_E_OSFAILURE;
-            GT_setFailureReason (curTrace,
-                                 GT_4CLASS,
-                                 "ProcDEH_open",
-                                 status,
-                                 "Failed to open ProcDEH driver with OS!");
-        }
-        else {
-            osStatus = fcntl (ProcDEH_TeslaHandle, F_SETFD, FD_CLOEXEC);
-            if (osStatus != 0) {
-                status = ProcDEH_E_OSFAILURE;
-                GT_setFailureReason (curTrace,
-                                     GT_4CLASS,
-                                     "ProcDEH_open",
-                                     status,
-                                     "Failed to set file descriptor flags!");
-            }
-        }
-    }
-=======
->>>>>>> 084f0a4
     else {
         GT_setFailureReason (curTrace,
                              GT_4CLASS,
@@ -330,11 +254,7 @@ Int32 ProcDEH_registerEvent (UInt16     procId,
                 eventfd, reg);
 
 #if !defined(SYSLINK_BUILD_OPTIMIZE)
-<<<<<<< HEAD
-    if (procId == MultiProc_self ()) {
-=======
     if ((procId == MultiProc_self ()) || (procId == MultiProc_getId ("Tesla"))) {
->>>>>>> 084f0a4
         status = ProcDEH_E_INVALIDARG;
         GT_setFailureReason (curTrace,
                              GT_4CLASS,
@@ -362,12 +282,6 @@ Int32 ProcDEH_registerEvent (UInt16     procId,
         else if (procId == MultiProc_getId ("AppM3")) {
             osStatus = ioctl (ProcDEH_AppM3Handle, cmd, &args);
         }
-<<<<<<< HEAD
-        else if (procId == MultiProc_getId ("Tesla")) {
-            osStatus = ioctl (ProcDEH_TeslaHandle, cmd, &args);
-        }
-=======
->>>>>>> 084f0a4
 #if !defined(SYSLINK_BUILD_OPTIMIZE)
         if (osStatus < 0) {
             GT_setFailureReason (curTrace,

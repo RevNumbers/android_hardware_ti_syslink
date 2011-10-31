@@ -40,15 +40,6 @@ API_LIBS = \
 	$(LDPATH)/notify/libsyslinknotify.la
 
 
-<<<<<<< HEAD
-bin_PROGRAMS = nameServerApp
-
-nameServerApp_SOURCES = NameServerApp.c
-
-nameServerApp_CPPFLAGS = $(AM_CFLAGS)
-
-nameServerApp_LDADD = $(API_LIBS)
-=======
 bin_PROGRAMS = nameServerApp.out
 
 nameServerApp_out_SOURCES = NameServerApp.c
@@ -56,4 +47,3 @@ nameServerApp_out_SOURCES = NameServerApp.c
 nameServerApp_out_CPPFLAGS = $(AM_CFLAGS)
 
 nameServerApp_out_LDADD = $(API_LIBS)
->>>>>>> 084f0a4

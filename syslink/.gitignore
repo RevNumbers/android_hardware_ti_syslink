@@ -12,12 +12,5 @@ libtool
 config.h.in
 config
 configure
-<<<<<<< HEAD
-config.status
-config.h
-config.log
-stamp-h1
-=======
->>>>>>> 084f0a4
 
 build

@@ -7,15 +7,6 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR([config])
 AM_INIT_AUTOMAKE([-Wall])
-<<<<<<< HEAD
-
-dnl use pretty build output with automake >= 1.11
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])],
-  [AM_DEFAULT_VERBOSITY=1
-   AC_SUBST(AM_DEFAULT_VERBOSITY)])
-
-=======
->>>>>>> 084f0a4
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -81,18 +72,6 @@ AC_ARG_ENABLE([debug],
 	esac],[debug=$default_debug])
 AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
 
-<<<<<<< HEAD
-# Don't build samples by default.. normal release only needs daemons and api
-AC_ARG_ENABLE([samples],
-	[  --enable-samples        Build Samples, [default=false]],
-	[case "${enableval}" in
-	yes) enable_samples=true;;
-	*)   enable_samples=false;;
-	esac],
-	[enable_samples=false])
-AM_CONDITIONAL([BUILD_SAMPLES], test "x$enable_samples" = "xtrue")
-=======
->>>>>>> 084f0a4
 
 # Check for kernel src path:
 AC_ARG_WITH(kpath,[  --with-kpath             specify the path to the kernel modules],[

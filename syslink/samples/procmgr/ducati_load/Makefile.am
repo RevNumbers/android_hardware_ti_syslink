@@ -31,15 +31,6 @@ API_LIBS = \
 	$(LDPATH)/sysmgr/libsysmgr.la \
 	$(LDPATH)/notify/libsyslinknotify.la
 
-<<<<<<< HEAD
-bin_PROGRAMS = ducati_load
-
-ducati_load_SOURCES = ducati_load.c getopt.c
-
-ducati_load_CPPFLAGS = $(AM_CFLAGS)
-
-ducati_load_LDADD = $(API_LIBS)
-=======
 bin_PROGRAMS = ducati_load.out
 
 ducati_load_out_SOURCES = ducati_load.c getopt.c
@@ -47,4 +38,3 @@ ducati_load_out_SOURCES = ducati_load.c getopt.c
 ducati_load_out_CPPFLAGS = $(AM_CFLAGS)
 
 ducati_load_out_LDADD = $(API_LIBS)
->>>>>>> 084f0a4

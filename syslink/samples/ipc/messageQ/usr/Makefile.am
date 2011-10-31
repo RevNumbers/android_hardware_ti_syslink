@@ -41,17 +41,6 @@ API_LIBS = \
 	$(LDPATH)/sysmgr/libsysmgr.la
 
 
-<<<<<<< HEAD
-bin_PROGRAMS = messageQApp
-
-messageQApp_SOURCES = \
-	MessageQAppOS.c \
-	MessageQApp.c
-
-messageQApp_CPPFLAGS = $(AM_CFLAGS)
-
-messageQApp_LDADD = $(API_LIBS)
-=======
 bin_PROGRAMS = messageQApp.out
 
 messageQApp_out_SOURCES = \
@@ -61,4 +50,3 @@ messageQApp_out_SOURCES = \
 messageQApp_out_CPPFLAGS = $(AM_CFLAGS)
 
 messageQApp_out_LDADD = $(API_LIBS)
->>>>>>> 084f0a4

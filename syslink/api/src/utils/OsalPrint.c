@@ -53,10 +53,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 084f0a4
 #ifdef HAVE_ANDROID_OS
 #include <utils/Log.h>
 #undef LOG_TAG
@@ -100,24 +97,6 @@ Void Osal_configPrint (Osal_PrintConfig printType)
 Void Osal_printf (Char* format, ...)
 {
     va_list args;
-<<<<<<< HEAD
-
-    va_start (args, format);
-
-#if defined (HAVE_ANDROID_OS)
-    if (printToLogCat == TRUE) {
-        Char buffer [512];
-        vsnprintf (buffer, sizeof(buffer), format, args);
-        LOGD ("%s", buffer);
-        va_end (args);
-        return;
-    }
-#endif
-
-    vprintf (format, args);
-
-    va_end (args);
-=======
     Char    buffer [512];
 
     va_start (args, format);
@@ -150,7 +129,6 @@ Void Osal_printfLOGD (char* format, ...)
     vsprintf (buffer, format, args);
     va_end   (args);
     LOGD("%s", buffer);
->>>>>>> 084f0a4
 }
 
 

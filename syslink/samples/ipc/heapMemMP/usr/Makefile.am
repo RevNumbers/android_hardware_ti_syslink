@@ -30,15 +30,6 @@ API_LIBS = \
 	$(LDPATH)/procmgr/libprocmgr.la \
 	$(LDPATH)/sysmgr/libsysmgr.la
 
-<<<<<<< HEAD
-bin_PROGRAMS = heapMemMPApp
-
-heapMemMPApp_SOURCES = HeapMemMPAppOS.c HeapMemMPApp.c
-
-heapMemMPApp_CPPFLAGS = $(AM_CFLAGS)
-
-heapMemMPApp_LDADD = $(API_LIBS)
-=======
 bin_PROGRAMS = heapMemMPApp.out
 
 heapMemMPApp_out_SOURCES = HeapMemMPAppOS.c HeapMemMPApp.c
@@ -46,4 +37,3 @@ heapMemMPApp_out_SOURCES = HeapMemMPAppOS.c HeapMemMPApp.c
 heapMemMPApp_out_CPPFLAGS = $(AM_CFLAGS)
 
 heapMemMPApp_out_LDADD = $(API_LIBS)
->>>>>>> 084f0a4

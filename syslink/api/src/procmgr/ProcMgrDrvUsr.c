@@ -398,25 +398,6 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
 
         case CMD_PROCMGR_START:
         {
-<<<<<<< HEAD
-            ProcMgr_CmdArgsStart         * srcArgs = \
-                                                (ProcMgr_CmdArgsStart *) args;
-            ProcMgr_CmdArgsRemoteProcStart rProcStartArgs;
-
-            rProcStartArgs.startAddr = srcArgs->entry_point;
-            if (srcArgs->params->proc_id == TEMP_PROC_SYSM3_ID) {
-                osStatus = ioctl (ProcDrvSysM3_handle, RPROC_IOCSTART,
-                                                        &rProcStartArgs);
-            }
-            else if (srcArgs->params->proc_id == TEMP_PROC_APPM3_ID) {
-                osStatus = ioctl (ProcDrvAppM3_handle, RPROC_IOCSTART,
-                                                        &rProcStartArgs);
-            }
-            else {
-                osStatus = ioctl (ProcDrvTesla_handle, RPROC_IOCSTART,
-                                                        &rProcStartArgs);
-            }
-=======
             ProcMgr_CmdArgsStart * srcArgs = (ProcMgr_CmdArgsStart *) args;
 
             Osal_printf("%s %d proc id = %d\n", __func__, __LINE__,
@@ -427,7 +408,6 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
                 osStatus = ioctl (ProcDrvAppM3_handle, RPROC_IOCSTART, NULL);
             else
                 osStatus = ioctl (ProcDrvTesla_handle, RPROC_IOCSTART, NULL);
->>>>>>> 084f0a4
             if (osStatus < 0) {
                 /*! @retval PROCMGR_E_OSFAILURE Driver ioctl failed */
                 status = PROCMGR_E_OSFAILURE;
@@ -437,15 +417,8 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
                                      status,
                                      "Driver ioctl failed!");
             }
-<<<<<<< HEAD
-            else {
-                srcArgs->commonArgs.apiStatus = \
-                                        rProcStartArgs.commonArgs.apiStatus;
-            }
-=======
 
 
->>>>>>> 084f0a4
         }
         break;
 
@@ -453,27 +426,12 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
         {
             ProcMgr_CmdArgsStop* srcArgs = (ProcMgr_CmdArgsStop *) args;
 
-<<<<<<< HEAD
-            if (srcArgs->params->proc_id == TEMP_PROC_SYSM3_ID) {
-                osStatus = ioctl (ProcDrvSysM3_handle, RPROC_IOCSTOP,
-                                    &srcArgs->commonArgs);
-            }
-            else if (srcArgs->params->proc_id == TEMP_PROC_APPM3_ID) {
-                osStatus = ioctl (ProcDrvAppM3_handle, RPROC_IOCSTOP,
-                                    &srcArgs->commonArgs);
-            }
-            else {
-                osStatus = ioctl (ProcDrvTesla_handle, RPROC_IOCSTOP,
-                                    &srcArgs->commonArgs);
-            }
-=======
             if (srcArgs->params->proc_id == TEMP_PROC_SYSM3_ID)
                 osStatus = ioctl (ProcDrvSysM3_handle, RPROC_IOCSTOP, NULL);
             else if (srcArgs->params->proc_id == TEMP_PROC_APPM3_ID)
                 osStatus = ioctl (ProcDrvAppM3_handle, RPROC_IOCSTOP, NULL);
             else
                 osStatus = ioctl (ProcDrvTesla_handle, RPROC_IOCSTOP, NULL);
->>>>>>> 084f0a4
             if (osStatus < 0) {
                 /*! @retval PROCMGR_E_OSFAILURE Driver ioctl failed */
                 status = PROCMGR_E_OSFAILURE;
@@ -483,10 +441,7 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
                                      status,
                                      "Driver ioctl failed!");
             }
-<<<<<<< HEAD
-=======
 
->>>>>>> 084f0a4
         }
         break;
 
@@ -548,19 +503,6 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
             }
         }
         break ;
-<<<<<<< HEAD
-    }
-
-    if (osStatus >= 0) {
-        /* First field in the structure is the API status. */
-        status = ((ProcMgr_CmdArgs *) args)->apiStatus;
-    }
-
-    GT_1trace (curTrace,
-               GT_1CLASS,
-               "    ProcMgrDrvUsr_ioctl: API Status [0x%x]",
-               status);
-=======
 
         if (osStatus >= 0) {
             /* First field in the structure is the API status. */
@@ -572,7 +514,6 @@ ProcMgrDrvUsr_ioctl (UInt32 cmd, Ptr args)
                    "    ProcMgrDrvUsr_ioctl: API Status [0x%x]",
                    status);
     }
->>>>>>> 084f0a4
 
     if (driverOpened == TRUE) {
         /* If the driver was temporarily opened here, close it. */
